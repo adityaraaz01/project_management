@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'dash_board#home'
   get '/home',      to: 'dash_board#home'
   get  '/signup',   to: 'users#new'
+  resources :users
 end
