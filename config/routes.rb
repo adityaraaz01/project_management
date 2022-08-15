@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get 'users/new'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'dash_board#home'
-  get '/home',      to: 'dash_board#home'
-  get  '/signup',   to: 'users#new'
+  root   'dash_board#home'
+  get    '/home',    to: 'dash_board#home'
+  get    '/signup',  to: 'users#new'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
   resources :users
 end
