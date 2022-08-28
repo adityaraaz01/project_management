@@ -1,0 +1,22 @@
+<%= render 'projects/form' %>
+<hr> 
+<p class="text-style"><strong>This list displays all the Projects.</strong><br>
+ You may click on the project name to access it.</p>
+<h1>Projects</h1>
+<table class="table table-dark table-striped" >
+  <thead>
+  <% @projects.each do |project| %>
+  <tbody>
+    <tr>
+      <th>
+        <%= link_to project.name.capitalize(), project %>
+      </th>
+      <th>
+        <%= link_to 'Delete', project,
+        method: :delete,
+        data: { confirm: 'Are you sure?' } , :class => "btn btn-primary custom_btn_small" %>
+      </th>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

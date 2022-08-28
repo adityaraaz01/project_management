@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_11_082531) do
+ActiveRecord::Schema.define(version: 2022_08_22_095413) do
+
+  create_table "features", force: :cascade do |t|
+    t.string "Title"
+    t.string "Description"
+    t.string "Category"
+    t.integer "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_features_on_project_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "content"
+    t.string "status"
+    t.integer "feature_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feature_id"], name: "index_tasks_on_feature_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -21,4 +46,6 @@ ActiveRecord::Schema.define(version: 2022_08_11_082531) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "features", "projects"
+  add_foreign_key "tasks", "features"
 end

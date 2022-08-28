@@ -1,0 +1,48 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+h3 {
+    font-size: 2em;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+hr{
+  max-width: 0px;
+}
+
+.nexttosidebar,#falert{
+  padding-left: 200px;
+}
+
+td,tr,table{
+  margin: 0px;
+  padding: 0px;
+}
+
+#featuresearch{
+  width: 500px;
+  display: inline;
+}
+#tasknew{
+  display: inline-flex;
+}
+
+#taskcreate{
+  width: 200px;
+  height: 30px; 
+  //display: inline;
+}
+
+#fcreate{
+  width: 500px;
+  height: 32px; 
+}
+
+#newpro{
+  display: inline-flex;
+  margin: 0px;
+  padding: 0px;
+}
+

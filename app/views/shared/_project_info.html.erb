@@ -1,0 +1,3 @@
+<h1><%= current_project.name %></h1>
+<span><%= link_to "view my profile", current_project %></span>
+<span><%= pluralize(current_project.features.count, "feature") %></span>

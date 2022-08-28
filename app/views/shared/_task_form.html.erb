@@ -1,0 +1,8 @@
+<%= form_with(model: @task, local: true) do |f| %>
+  <%= f.hidden_field :feature_id, value: @feature_id %>
+  <div class="field", id="tasknew">
+    <%= f.text_area :content, placeholder: "New Task", class:"form-control me-2", id:"taskcreate" %>
+    <%= f.select :status,["Started","Finished","Delivered"],class:"form-control me-2" %>
+    <%= f.submit "Create Task", class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<div class="nexttosidebar" >
+  <%= render 'search/form' %>
+  <br>
+  <h3><%= @project.name.capitalize()  %> <%= " || " %><%= @cat.capitalize() %></h3>
+  <br>
+  <%= render 'shared/feature_form' %>
+  <br>
+	<p class="text-style"><strong>This list displays all the features of  <%= @cat.capitalize() %> and Tasks of each features if available.</strong></p> <br>
+	<table class="table table-responsive table-hover" >
+    <%@i = 0%>
+    <% @features.each do |feature| %>
+      <% if feature.Category == @cat %>
+        <% @i = @i+1%>
+        <tr>
+          <td><strong><%= "Feature No: "%><%= @i %></strong></td>
+          <td><strong><%= feature.Title %></strong></td>
+          <td><strong><%= feature.Description %></strong></td>
+          <% @feature_id = feature.id%>
+          <td><%= render 'shared/task_form' %></td>
+        </tr>
+        <%@j = 0%>
+        <% @tasks.each do |task| %>
+          <% if task.feature_id == feature.id %>
+            <% @j=@j+1%>
+            <tr>
+              <td><%= "Task No: "  %><%= @j %></td>
+              <td><%= task.content %></td>
+              <td><%= task.status %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+	</table>
+</div>

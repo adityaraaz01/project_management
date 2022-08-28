@@ -1,0 +1,12 @@
+
+<h1>tasks</h1>
+<br>
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.content%>
+      <%= task.feature_id%>
+      
+    </li>
+  <% end %>
+</ul>

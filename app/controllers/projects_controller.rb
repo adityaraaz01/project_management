@@ -1,0 +1,114 @@
+class ProjectsController < ApplicationController
+  def index
+    if logged_in?
+		  @projects= Project.all
+      @project = Project.new
+      
+    else
+      redirect_to login_path
+    end
+  end
+
+
+  def show
+    if logged_in?
+      @project = Project.find_by_id(params[:id])
+      @pro_id = params[:id]
+      @feature = Feature.new
+      @fp_id = params[:project_id]
+      @task = Task.new
+      @tasks = Task.all
+      @features = Feature.where(project_id: @pro_id)
+      @feature_idd = Feature.find_by_id(params[:id])
+    else
+      redirect_to login_path
+    end
+	end
+
+  def currentiteration
+    if logged_in?
+      @project = Project.find_by_id(params[:id])
+      @pro_id = params[:id]
+      @feature = Feature.new
+      @task = Task.new
+      @tasks = Task.all
+      @features = Feature.where(project_id: @pro_id)
+      @feature_idd = Feature.find_by_id(params[:id])
+    
+    else
+      redirect_to login_path
+    end
+	end
+
+  def backlog
+    if logged_in?
+      @project = Project.find_by_id(params[:id])
+      @pro_id = params[:id]
+      @feature = Feature.new
+        @feature_idd = Feature.find_by_id(params[:id])
+        @fp_id = params[:project_id]
+      @task = Task.new
+      @tasks = Task.all
+      @features = Feature.where(project_id: @pro_id)
+    
+    else
+      redirect_to login_path
+    end
+	end
+
+  def icebox
+    if logged_in?
+      @project = Project.find_by_id(params[:id])
+      @pro_id = params[:id]
+      @feature = Feature.new
+        @feature_idd = Feature.find_by_id(params[:id])
+        @fp_id = params[:project_id]
+      @task = Task.new
+      @tasks = Task.all
+      @features = Feature.where(project_id: @pro_id)
+    
+    else
+      redirect_to login_path
+    end
+	end
+
+	def new
+    if logged_in?
+		  @project = Project.new
+        @pro_id = params[:id]
+    else
+      redirect_to login_path
+    end
+	end
+
+	def create
+		 @project= Project.new(project_params)
+		 if @project.save
+      flash[:success] = "project Created!"
+  		redirect_to projects_path
+  	else
+  			render 'new'
+  	end
+	end
+
+  def destroy
+    @pro = Project.find_by_id(params[:id])
+    @f_d = Feature.where(:project_id => @pro.id)
+    @f_d.each do |i|
+      @t_d = Task.where(:feature_id => i.id)
+      @t_d.each do |k|
+        k.destroy  
+      end
+      i.destroy  
+    end
+    @pro.destroy
+    flash[:success] = "project deleted!"
+    redirect_to projects_path
+  end
+
+ private
+
+  def project_params
+  	params.require(:project).permit(:name)
+  end
+end
