@@ -1,0 +1,13 @@
+<%= form_with model: @task, url: task_path(@task), method: :patch, local: true do |f| %>
+  <%= f.hidden_field :feature_id, value: @feature_id %>
+  <%= render 'shared/error_messages', object: @task %>
+  <div class="field", id="tasknew">
+    <div class="mb-3 required">
+      <%= f.label :content,"Task Content" %>
+      <%= f.text_field :content, class: "form-control", placeholder: "Task content", required: true %>
+    </div>
+    <%= f.select :status,["Started","Finished","Delivered"],class:"form-control me-2" %>
+    <%= f.submit "Update Task", class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>
+<%= link_to "Back", 'javascript:history.back()', class: "btn btn-outline-secondary" %>

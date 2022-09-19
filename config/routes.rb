@@ -11,8 +11,13 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   resources :users
   resources :projects
-  resources :features, only: [:create, :destroy]
-  resources :tasks
+  resources :features
+  resources :tasks do
+    member do
+      patch "status"
+      patch "done"
+    end
+  end
   get '/features', to: 'projects#show'
   get '/projects/:id/currentiteration', to:'projects#currentiteration', as: 'currentiteration_project'
   get '/projects/:id/backlog', to:'projects#backlog', as: 'backlog_project'

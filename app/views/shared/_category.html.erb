@@ -1,4 +1,9 @@
 <div class="nexttosidebar" >
+  <strong><%= current_user.name%></strong>
+  <% @users = User.all %>
+  <% @users.each do |user| %>
+    <%= user.name%>
+  <% end %>
   <%= render 'search/form' %>
   <br>
   <h3><%= @project.name.capitalize()  %> <%= " || " %><%= @cat.capitalize() %></h3>
@@ -23,9 +28,18 @@
           <% if task.feature_id == feature.id %>
             <% @j=@j+1%>
             <tr>
+              <td >
+                <%= check_box_tag 'Done', true , task.done,
+                      onchange: "$(this).data('params',  this.checked)",
+                      data: { remote: true, url: done_task_path(id: task.id), method: :patch }%>
+              </td>
               <td><%= "Task No: "  %><%= @j %></td>
               <td><%= task.content %></td>
-              <td><%= task.status %></td>
+              <td>
+                <%= select_tag( 'status', options_for_select(["Started","Finished","Delivered"], { selected: task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: task.id), method: :patch }) %>
+              </td>
+              
+              <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %></td>
             </tr>
           <% end %>
         <% end %>
