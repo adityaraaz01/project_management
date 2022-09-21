@@ -1,1 +1,22 @@
-<%= feature.Title %>
+<h1><%= @feature.Title %><br></h1>
+<%task = Task.new%>
+<% feature_task = Task.where(feature_id: @feature.id) %>
+<h4><%= "Tasks:" %><strong><%= feature_task.where(done: true).count() %><%= "/" %><%= feature_task.count() %></strong></h4>
+<table class="table table-responsive table-hover">
+  <thead>
+    <tr>
+      <th> <%= "Content" %> <th>
+      <th> <%= "Status" %> <th>
+      <th> <%= "Member" %> <th>
+    </tr>
+  </thead>
+  <tbody> 
+    <% feature_task.each do |t| %>
+      <tr>
+        <th> <%= t.content %> <th>
+        <th> <%= t.status %> <th>
+        <th> <% c= User.where(id: t.user_id) %> <%= c[0].name%><th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

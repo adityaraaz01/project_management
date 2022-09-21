@@ -9,7 +9,8 @@ class FeaturesController < ApplicationController
 
   def show
     if logged_in?
-      @feature = find_by_id(params[:id])
+      @feature = Feature.find_by_id(params[:id])
+      @tasks = Task.all
     else
       redirect_to login_path
     end
