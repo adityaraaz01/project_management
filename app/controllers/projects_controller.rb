@@ -94,6 +94,10 @@ class ProjectsController < ApplicationController
   def destroy
     @pro = Project.find_by_id(params[:id])
     @f_d = Feature.where(:project_id => @pro.id)
+    @project_access = Access.where(:project_id => @pro.id)
+    @project_access.each do |i|
+      i.destroy
+    end
     @f_d.each do |i|
       @t_d = Task.where(:feature_id => i.id)
       @t_d.each do |k|
@@ -109,6 +113,6 @@ class ProjectsController < ApplicationController
  private
 
   def project_params
-  	params.require(:project).permit(:name)
+  	params.require(:project).permit(:name, :manager_name)
   end
 end

@@ -10,12 +10,14 @@ Rails.application.routes.draw do
  # get    '/logout',  to: 'sessions#destroy'
   delete '/logout',  to: 'sessions#destroy'
   resources :users
-  resources :projects
+  resources :projects 
+  resources :accesses
   resources :features
   resources :tasks do
     member do
       patch "status"
       patch "done"
+      patch "user_id"
     end
   end
   get '/features', to: 'projects#show'

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_09_052807) do
+ActiveRecord::Schema.define(version: 2022_09_20_184901) do
+
+  create_table "accesses", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_accesses_on_project_id"
+    t.index ["user_id"], name: "index_accesses_on_user_id"
+  end
 
   create_table "features", force: :cascade do |t|
     t.string "Title"
@@ -26,6 +35,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_052807) do
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "manager_name"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -35,6 +45,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_052807) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "done", default: false
+    t.integer "user_id"
     t.index ["feature_id"], name: "index_tasks_on_feature_id"
   end
 
@@ -47,6 +58,8 @@ ActiveRecord::Schema.define(version: 2022_09_09_052807) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "accesses", "projects"
+  add_foreign_key "accesses", "users"
   add_foreign_key "features", "projects"
   add_foreign_key "tasks", "features"
 end

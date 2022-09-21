@@ -49,9 +49,19 @@ class TasksController < ApplicationController
   def done
     @task = Task.find(params[:id])
     if @task.update_attribute(:done, params[:Done])
-    redirect_to request.referrer
+      redirect_to request.referrer
     else
       flash.now[:error] = "Done failed"
+    end
+  end
+
+  def user_id
+    @task = Task.find(params[:id])
+    if @task.update_attribute(:user_id, params[:user_id])
+      flash[:success] = "Member Assigned"
+      redirect_to request.referrer
+    else
+      flash.now[:error] = "Member Not Assigned"
     end
   end
 

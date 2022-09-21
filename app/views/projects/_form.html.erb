@@ -1,6 +1,7 @@
 <div class="row", id="newpro">
     <div class="col-md-6 col-md-offset-3" , id="newpro">
         <%= form_with(model: @project, local: true) do |f| %>
+        <%= f.hidden_field :manager_name, value: current_user.name %>
             <%= f.label :NewProject%>
             <%= f.text_field :name, placeholder: "Project Name", class: 'form-control me-2', id:'newpro' %>          
             <%= f.submit "Submit", class: "btn btn-primary custom_btn_small", id:'newpro' %>

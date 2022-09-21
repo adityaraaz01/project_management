@@ -4,18 +4,20 @@
  You may click on the project name to access it.</p>
 <h1>Projects</h1>
 <table class="table table-dark table-striped" >
-  <thead>
   <% @projects.each do |project| %>
   <tbody>
     <tr>
-      <th>
+      <td>
         <%= link_to project.name.capitalize(), project %>
-      </th>
-      <th>
+      </td>
+      <td>
+        <%= "Admin: "%><%= project.manager_name %>
+      </td>
+      <td>
         <%= link_to 'Delete', project,
         method: :delete,
         data: { confirm: 'Are you sure?' } , :class => "btn btn-primary custom_btn_small" %>
-      </th>
+      </td>
     </tr>
   </tbody>
   <% end %>
