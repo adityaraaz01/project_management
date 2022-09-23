@@ -43,6 +43,7 @@
           <td><strong><%= feature.Description %></strong></td>
           <% @feature_id = feature.id%>
           <td><%= render 'shared/task_form' %></td>
+          <td><%= link_to 'Show', feature, :class => "btn btn-primary custom_btn_small" %></td>
         </tr>
         <%@j = 0%>
         <% feature_task.each do |task| %>

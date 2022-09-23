@@ -5,17 +5,23 @@
 <table class="table table-responsive table-hover">
   <thead>
     <tr>
-      <th> <%= "Content" %> <th>
-      <th> <%= "Status" %> <th>
-      <th> <%= "Member" %> <th>
+      <th> <%= "Content" %> </th>
+      <th> <%= "Status" %> </th>
+      <th> <%= "Member" %> </th>
     </tr>
   </thead>
   <tbody> 
     <% feature_task.each do |t| %>
       <tr>
-        <th> <%= t.content %> <th>
-        <th> <%= t.status %> <th>
-        <th> <% c= User.where(id: t.user_id) %> <%= c[0].name%><th>
+        <th> <%= t.content %> </th>
+        <th> <%= t.status %> </th>
+        <th> <% c= User.where(id: t.user_id) %>
+          <% if c.count() == 0%>
+            <%= "Task not Assigned"%>
+          <% else %>
+            <%= c[0].name%>
+          <% end %>
+         </th>
       </tr>
     <% end %>
   </tbody>
