@@ -10,6 +10,21 @@ $gray-medium-light: #eaeaea;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
 }
+.post-box{
+  padding: 2%;
+ box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  background-color: rgba(238, 238, 238,0.3);
+  font-family: 'Comfortaa', cursive;
+  max-width: 55%;
+  align-self:centre;
+        border-radius: 20px;
+ margin-bottom: 5%;
+
+}
+.post-box:hover {
+
+ background-color: rgba(238, 238, 238,0.8);
+}
 /* universal */
 
 body {

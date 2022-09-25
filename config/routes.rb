@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :projects 
   resources :accesses
+  resources :comments
   resources :features do
     member do
       patch "document"
@@ -28,4 +29,5 @@ Rails.application.routes.draw do
   get '/projects/:id/currentiteration', to:'projects#currentiteration', as: 'currentiteration_project'
   get '/projects/:id/backlog', to:'projects#backlog', as: 'backlog_project'
   get '/projects/:id/icebox', to:'projects#icebox', as: 'icebox_project'
+  post '/tasks/:id/edit', to:'comments#create'
 end

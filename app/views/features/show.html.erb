@@ -31,7 +31,7 @@
       <div class="d-flex" style="gap:25px">
         <% @feature.documents.includes([:blob]).each do |document| %>
           <div class="d-flex flex-column ", style="gap: 25px;">
-            <strong><%= "Document: " %></strong>
+            <strong><%= "Document Attached : " %></strong>
             <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank" %>
             <%= link_to "Download" , rails_blob_path(document, disposition: "attachment"),class:"btn btn-outline-secondary", target: "_blank" %>
           </div>
@@ -45,10 +45,11 @@
       </div>
     <% end %>
 <% else %>
+  <strong><%= "Upload Document: " %></strong>
   <%= form_with model: @feature, url: document_feature_url(id: @feature.id) do |f|%>
     <div class="field", id="tasknew">
       <%= f.file_field :documents, multiple: true, :class => "form-control" %>
-      <%= f.submit "Upload", class: "btn btn-primary" %>
+      <%= f.submit "Save", class: "btn btn-primary" %>
     </div>
   <% end %>
 <% end %>
