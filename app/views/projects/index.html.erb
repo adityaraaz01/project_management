@@ -1,8 +1,11 @@
 <%= render 'projects/form' %>
 <hr> 
-<p class="text-style"><strong>This list displays all the Projects.</strong><br>
- You may click on the project name to access it.</p>
+<p class="text-style"><strong>This list displays all the Projects in which user has been given access or user is the admin.</strong></p>
 <h1>Projects</h1>
+<% @access = Access.new %>
+<% access_req = Access.where(user_id: current_user.id) %>
+<% access_given = access_req.select(:project_id) %>
+<% @projects = Project.where(id: access_given).or(Project.where(manager_name: current_user.name)) %>
 <table class="table table-dark table-striped" >
   <% @projects.each do |project| %>
   <tbody>

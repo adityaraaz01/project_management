@@ -64,7 +64,7 @@
             <%= "Status: " %>
               <%= select_tag( 'status', options_for_select(["Started","Finished","Delivered"], { selected: task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: task.id), method: :patch }) %>
             </td>
-            <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %></td>
+            <td><%= link_to "Comments",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %></td>
           </tr>
         <% end %>
       <% end %>
