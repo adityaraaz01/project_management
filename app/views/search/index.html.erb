@@ -14,12 +14,13 @@
       <% @features.each do |feature|%>
       <% @proo = Project.where(id: feature.project_id) %>
         <tr>
-          <th><%= link_to feature.Title, project_path(feature.project_id)%></th>
+          <th><%= link_to feature.Title, feature_path(feature.id)%></th>
           <th><%= feature.Description.truncate_words(10)%></th>
           <!-- <th><%= @proo.name %></th> -->
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= link_to "Back", 'javascript:history.back()', class: "btn btn-outline-secondary" %>
 </div>
 

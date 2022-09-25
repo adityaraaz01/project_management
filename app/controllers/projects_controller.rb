@@ -101,6 +101,10 @@ class ProjectsController < ApplicationController
     @f_d.each do |i|
       @t_d = Task.where(:feature_id => i.id)
       @t_d.each do |k|
+        @c_d = Comment.where(:task_id => k.id)
+        @c_d.each do |c|
+          c.destroy
+        end
         k.destroy  
       end
       i.destroy  
