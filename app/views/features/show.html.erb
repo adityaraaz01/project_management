@@ -1,5 +1,5 @@
 <h1><%= @feature.Title %><br></h1>
-<%task = Task.new%>
+<% task = Task.new %>
 <% feature_task = Task.where(feature_id: @feature.id) %>
 <h4><%= "Tasks:" %><strong><%= feature_task.where(done: true).count() %><%= "/" %><%= feature_task.count() %></strong></h4>
 <table class="table table-responsive table-hover">
@@ -16,13 +16,40 @@
         <th> <%= t.content %> </th>
         <th> <%= t.status %> </th>
         <th> <% c= User.where(id: t.user_id) %>
-          <% if c.count() == 0%>
-            <%= "Task not Assigned"%>
+          <% if c.count() == 0 %>
+            <%= "Task not Assigned" %>
           <% else %>
-            <%= c[0].name%>
+            <%= c[0].name %>
           <% end %>
          </th>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% if @feature.documents.attached? %>
+    <div class="col-md">
+      <div class="d-flex" style="gap:25px">
+        <% @feature.documents.includes([:blob]).each do |document| %>
+          <div class="d-flex flex-column ", style="gap: 25px;">
+            <strong><%= "Document: " %></strong>
+            <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank" %>
+            <%= link_to "Download" , rails_blob_path(document, disposition: "attachment"),class:"btn btn-outline-secondary", target: "_blank" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <%= form_with model: @feature, url: document_feature_url(id: @feature.id) do |f|%>
+      <div class="field", id="tasknew">
+        <%= f.file_field :documents, multiple: true, :class => "form-control" %>
+        <%= f.submit "Edit Document", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+<% else %>
+  <%= form_with model: @feature, url: document_feature_url(id: @feature.id) do |f|%>
+    <div class="field", id="tasknew">
+      <%= f.file_field :documents, multiple: true, :class => "form-control" %>
+      <%= f.submit "Upload", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
+<%= link_to "Back", 'javascript:history.back()',class: "btn btn-primary" %>

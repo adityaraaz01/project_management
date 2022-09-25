@@ -1,5 +1,5 @@
 <%= form_with(model: @feature, local: true) do |f| %>
-  <%= f.hidden_field :project_id, value: @pro_id%>
+  <%= f.hidden_field :project_id, value: @pro_id %>
   <%= f.hidden_field :Category, value: @cat %>
   <div class="field">
     <%= f.text_area :Title, placeholder: "Feature Title", class:"form-control me-2", id: "fcreate" %>

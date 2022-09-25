@@ -1,5 +1,5 @@
 <div class="nexttosidebar" >
-  <strong><%= "Current User:"%><%= @current_user.name %><%= " || Current Project:"%><%= @project.name.capitalize()  %><%= @project.manager_name  %></strong>
+  <strong><%= "Current User:"%><%= @current_user.name %><%= " || Current Project:"%><%= @project.name.capitalize() %><%= @project.manager_name %></strong>
   <%= render 'search/form' %>
   <% @access = Access.new %>
   <% access_req = Access.where(project_id: @project.id) %>
@@ -10,7 +10,7 @@
   <% user_access.each do |i| %>
     <% task_use[i.name] = i.id %>
   <% end %>
-  <% if @project.manager_name == @current_user.name%>
+  <% if @project.manager_name == @current_user.name %>
     <div class="col-md-6 col-md-offset-3" , id="newpro">
       <%= form_with(model: @access, local: true) do |f| %>
           <%= f.hidden_field :project_id , value: @project.id.to_i %>
@@ -19,11 +19,11 @@
       <% end %>
     </div>
   <%end%>
-  <strong><%= "Project Members: "%></strong>
+  <strong><%= "Project Members: " %></strong>
   <% access_req.each do |p|%>
-    <% @b= User.find_by(id: p.user_id)%>
+    <% @b= User.find_by(id: p.user_id) %>
     <%= @b.name%>
-  <%end%>
+  <% end %>
   <br>
   <h3><%= @project.name.capitalize()  %> <%= " || " %><%= @cat.capitalize() %></h3>
  
@@ -32,10 +32,10 @@
   <br>
 	<p class="text-style"><strong>This list displays all the features of  <%= @cat.capitalize() %> and Tasks of each features if available.</strong></p> <br>
 	<table class="table table-responsive table-hover" >
-    <%@i = 0%>
+    <% @i = 0 %>
     <% @features.each do |feature| %>
       <% if feature.Category == @cat %>
-        <% @i = @i+1%>
+        <% @i = @i+1 %>
         <% feature_task = Task.where(feature_id: feature.id) %>
         <tr>
           <td><strong><%= "Feature: "%><%= @i %><%= " (" %><%=feature_task.where(done: true).count()%><%= "/" %><%= feature_task.count()%><%= ")" %></strong></td>
@@ -45,23 +45,23 @@
           <td><%= render 'shared/task_form' %></td>
           <td><%= link_to 'Show', feature, :class => "btn btn-primary custom_btn_small" %></td>
         </tr>
-        <%@j = 0%>
+        <% @j = 0 %>
         <% feature_task.each do |task| %>
-          <% @j=@j+1%>
+          <% @j=@j+1 %>
           <tr>
             <td >
               <%= check_box_tag 'Done', true , task.done,
                     onchange: "$(this).data('params',  this.checked)",
-                    data: { remote: true, url: done_task_path(id: task.id), method: :patch }%>
+                    data: { remote: true, url: done_task_path(id: task.id), method: :patch } %>
             </td>
-            <td><%= "Task:"  %><%= @j %></td>
+            <td><%= "Task:" %><%= @j %></td>
             <td><%= task.content %></td>
             <td>
-            <%= "Member: "%>
+            <%= "Member: " %>
               <%= select_tag( 'user_id', options_for_select(task_use, { selected: task.user_id} ), prompt: "Assign Member", data:{ remote: true, url: user_id_task_path(id: task.id), method: :patch }) %>
             </td>
             <td>
-            <%= "Status: "%>
+            <%= "Status: " %>
               <%= select_tag( 'status', options_for_select(["Started","Finished","Delivered"], { selected: task.status } ), prompt: "Please select", data:{ remote: true, url: status_task_path(id: task.id), method: :patch }) %>
             </td>
             <td><%= link_to "Edit",edit_task_path(id: task.id), class: "btn btn-primary", role: "button" %></td>

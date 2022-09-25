@@ -6,11 +6,11 @@
   <tr >
     <%= check_box_tag 'Done', true , @task.done,
           onchange: "$(this).data('params',  this.checked)",
-          data: { remote: true, url: done_task_path(id: @task.id), method: :patch }%>
+          data: { remote: true, url: done_task_path(id: @task.id), method: :patch } %>
   </tr>
   <tr><strong><%= @task.content%></strong></tr><br>
-  <tr><strong>&nbsp;<%=" Task status: "%></strong><%= @task.status%></tr><br>
-  <tr><strong>&nbsp;<%=" Feature Title: "%></strong><%= @fea.Title%></tr><br>
+  <tr><strong>&nbsp;<%= " Task status: " %></strong><%= @task.status %></tr><br>
+  <tr><strong>&nbsp;<%= " Feature Title: " %></strong><%= @fea.Title %></tr><br>
 </table>
 
 
