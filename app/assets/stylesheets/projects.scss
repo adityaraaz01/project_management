@@ -45,4 +45,39 @@ td,tr,table{
   margin: 0px;
   padding: 0px;
 }
+.showcat {
+  display: flex ;
+  //justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  top: -20px;
+  z-index: 3;
 
+}
+.cards{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 1000px;
+  height: auto;
+  background-color: white;
+  border: 1px solid gainsboro;
+  //text-align: center;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.close{
+  cursor: pointer;
+  color: rgb(249, 2, 2);
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  padding: 0;
+}
+
+.close:hover {background: #bbb;}
+.current2:hover {background: #bbb;}

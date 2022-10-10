@@ -1,4 +1,6 @@
-<div class="nexttosidebar1" >
+<div class="nexttosidebar" >
+  <strong><%= "Current User:"%><%= @current_user.name %><%= " || Current Project:"%><%= @project.name.capitalize() %><%= @project.manager_name %></strong>
+  <%= render 'search/form' %>
   <% @access = Access.new %>
   <% access_req = Access.where(project_id: @project.id) %>
   <% access_given = access_req.select(:user_id) %>
@@ -8,8 +10,19 @@
   <% user_access.each do |i| %>
     <% task_use[i.name] = i.id %>
   <% end %>
+  <% if @project.manager_name == @current_user.name %>
+    <div class="col-md-6 col-md-offset-3" , id="newpro">
+      <%= form_with(model: @access, local: true) do |f| %>
+          <%= f.hidden_field :project_id , value: @project.id.to_i %>
+          <%= f.label :user_id, "Assign Member: " %>
+          <%= collection_select(:access, :user_id, req_id, :id, :name, {:prompt => true, :multiple=>false }, :onchange => 'this.form.submit()')%> 
+      <% end %>
+    </div>
+  <%end%>
+  <strong><%= "Project Members: " %></strong>
   <% access_req.each do |p|%>
     <% @b= User.find_by(id: p.user_id) %>
+    <%= @b.name%>
   <% end %>
   <br>
   <h3><%= @project.name.capitalize()  %> <%= " || " %><%= @cat.capitalize() %></h3>

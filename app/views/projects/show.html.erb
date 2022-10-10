@@ -1,3 +1,99 @@
-<%= render 'shared/sidebar' %>
-<%= @cat = "current" %>
-<%= render 'shared/category' %>
+
+<% if logged_in? %>
+  <div class="col-sm-3 col-md-2 sidebar", id="sidebarid">
+    <ul class="nav nav-sidebar">
+      <p id="demo"></p>
+      <li class="sidebar_back"><%= link_to "Back", projects_path %></li>
+      <li class="sidebar_current_iteration"><button class="btn btn-primary btn-block" onclick="myFunction1()">Current</button></li>
+      <br>
+      <li class="sidebar_backlog"><button class="btn btn-primary btn-block" onclick="myFunction2()">Backlog</button></li>
+      <br>
+      <li class="sidebar_icebox"><button class="btn btn-primary btn-block" onclick="myFunction3()">Icebox</button></li>
+    </ul>
+  </div>
+<% end %>
+<div class="nexttosidebar" >
+  <strong><%= "Current User: "%>&nbsp;<%= @current_user.name %>&nbsp;<%= "|| Current Project:"%>&nbsp;<%= @project.name.capitalize() %>&nbsp;<%= "|| Manager:" %>&nbsp;<%= @project.manager_name %></strong>
+  <%= render 'search/form' %>
+  <% @access = Access.new %>
+  <% access_req = Access.where(project_id: @project.id) %>
+  <% access_given = access_req.select(:user_id) %>
+  <% user_access = User.where(id: access_given) %>
+  <% req_id = User.where.not(id: access_given) %>
+  <% task_use = {} %>
+  <% user_access.each do |i| %>
+    <% task_use[i.name] = i.id %>
+  <% end %>
+  <% if @project.manager_name == @current_user.name %>
+    <div class="col-md-6 col-md-offset-3" , id="newpro">
+      <%= form_with(model: @access, local: true) do |f| %>
+          <%= f.hidden_field :project_id , value: @project.id.to_i %>
+          <%= f.label :user_id, "Assign Member: " %>
+          <%= collection_select(:access, :user_id, req_id, :id, :name, {:prompt => true, :multiple=>false }, :onchange => 'this.form.submit()')%> 
+      <% end %>
+    </div>
+  <%end%>
+  
+  <strong><%= "Project Members: " %></strong>
+  <% access_req.each do |p|%>
+    <% @b= User.find_by(id: p.user_id) %>
+    <%= @b.name%>
+  <% end %>
+  <br>
+  <br>
+  <div class="showcat">
+    <div class="cards" id="current">
+      <span class="close">&times;</span>
+      <% @cat = "current" %>
+      <%= render 'shared/category' %>
+    </div>
+    
+    <div class="cards" id="backlog">
+      <span class="close">&times;</span>
+      <% @cat = "backlog" %>
+      <%= render 'shared/category' %>
+    </div>
+
+    <div class="cards" id="icebox">
+      <span class="close">&times;</span>
+      <% @cat = "icebox" %>
+      <%= render 'shared/category' %>
+    </div>
+  </div>
+</div>
+
+<script>
+  var closebtns = document.getElementsByClassName("close");
+  var i;
+
+  for (i = 0; i < closebtns.length; i++) {
+    closebtns[i].addEventListener("click", function() {
+      this.parentElement.style.display = 'none';
+    });
+  }
+  function myFunction1() {
+    var x = document.getElementById('current');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  }
+  function myFunction3() {
+    var x = document.getElementById('icebox');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  }
+  function myFunction2() {
+    var x = document.getElementById('backlog');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
+  }
+
+</script>
