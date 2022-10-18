@@ -10,38 +10,5 @@
     <%= f.submit "Update Task", class: "btn btn-primary btn-sm" %>
   </div>
 <% end %>
-<% @comments = Comment.where(task_id: @task.id) %>
-<div class="container" >
- <% if @comments.nil? %>
-   <br> <p>No comments to display</p>
- <% else %>
-    <h2>Comments</h2>
-    <% @comments.each do |i| %>
-      <div class="container post-box">
-        <div>
-          <%= markdown(i.body) %>
-        </div>
-        <% @u = i.user.name %>
-        <p> : <%= @u %></p>
-        <%= link_to 'Delete', comment_path(:id => i.id),
-          method: :delete,
-          data: { confirm: 'Are you sure?' } , :class => "btn btn-primary custom_btn_small"%>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-<% @u_id = current_user.id %>
-<% @t_id = @task.id %>
-<% @comment = Comment.new %>
-<div class="container post-box">
-  <%= form_with(model: @comment, local: true) do |f| %>
-    <%= f.hidden_field :user_id, value: @u_id %>
-    <%= f.hidden_field :task_id, value: @t_id %>
-    <div class="field">
-      <%= f.text_area :body, placeholder: "New Comment", class:"form-control me-2", id: "submit_on_enter" %>
-      <%= f.submit "New Comment", class: "btn btn-primary btn-sm" %>
-    </div>      
-  <% end %>
-</div>
 
 <%= link_to "Back", 'javascript:history.back()', class: "btn btn-outline-secondary" %>

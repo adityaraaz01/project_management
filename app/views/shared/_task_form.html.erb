@@ -2,7 +2,7 @@
   <%= f.hidden_field :feature_id, value: @feature_id %>
   <%= f.hidden_field :status, value: "Started" %>
   <div class="field", id="tasknew">
-    <%= f.text_area :content, placeholder: "New Task", class:"form-control me-2", id:"taskcreate" %>
-    <%= f.submit "Create Task", class: "btn btn-primary btn-sm" %>
+    <%= f.text_field :content, placeholder: "New Task: Press Enter", class:"form-control me-2", id:"taskcreate" %>
+    <%#= f.submit "Create Task", class: "btn btn-primary btn-sm" %>
   </div>
 <% end %>
