@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_25_132920) do
+ActiveRecord::Schema.define(version: 2022_10_14_071739) do
 
   create_table "accesses", force: :cascade do |t|
     t.integer "project_id", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2022_09_25_132920) do
     t.integer "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token_id"
     t.index ["project_id"], name: "index_features_on_project_id"
   end
 

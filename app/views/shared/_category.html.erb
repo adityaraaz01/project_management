@@ -13,19 +13,16 @@
   <% end %>
   <br>
   <h3><%= @project.name.capitalize()  %> <%= " || " %><%= @cat.capitalize() %></h3>
- 
   <br>
   <%= render 'shared/feature_form' %>
   <br>
 	<p class="text-style"><strong>This list displays all the features of  <%= @cat.capitalize() %> and Tasks of each features if available.</strong></p> <br>
 	<table class="table table-responsive table-hover" >
-    <% @i = 0 %>
     <% @features.each do |feature| %>
       <% if feature.Category == @cat %>
-        <% @i = @i+1 %>
         <% feature_task = Task.where(feature_id: feature.id) %>
         <tr>
-          <td><strong><%= "Feature: "%><%= @i %><%= " (" %><%=feature_task.where(done: true).count()%><%= "/" %><%= feature_task.count()%><%= ")" %></strong></td>
+          <td><strong><%= "Id: "%><%= feature.token_id %><%= " (" %><%=feature_task.where(done: true).count()%><%= "/" %><%= feature_task.count()%><%= ")" %></strong></td>
           <td><strong><%= feature.Title %></strong></td>
           <td><strong><%= feature.Description %></strong></td>
           <% @feature_id = feature.id%>

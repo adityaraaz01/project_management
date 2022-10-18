@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:success] = "task created!"
+      flash[:success] = "Task created!"
       redirect_to request.referrer
     else
       render 'projects/index'
@@ -58,7 +58,9 @@ class TasksController < ApplicationController
   def user_id
     @task = Task.find(params[:id])
     if @task.update_attribute(:user_id, params[:user_id])
-      flash[:success] = "Member Assigned"
+      @user_r = params[:user_id]
+      TaskMailer.with(user_id: @user_r, task: @task).task_assigned.deliver_now
+      flash[:success] = "Member Assigned and Email sent."
       redirect_to request.referrer
     else
       flash.now[:error] = "Member Not Assigned"

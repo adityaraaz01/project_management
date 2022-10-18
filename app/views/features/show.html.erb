@@ -28,10 +28,10 @@
 </table>
 <% if @feature.documents.attached? %>
     <div class="col-md">
+      <strong><%= "Document Attached : " %></strong>
       <div class="d-flex" style="gap:25px">
         <% @feature.documents.includes([:blob]).each do |document| %>
           <div class="d-flex flex-column ", style="gap: 25px;">
-            <strong><%= "Document Attached : " %></strong>
             <%= link_to document.filename , rails_blob_path(document, disposition: "inline"), target: "_blank" %>
             <%= link_to "Download" , rails_blob_path(document, disposition: "attachment"),class:"btn btn-outline-secondary", target: "_blank" %>
           </div>

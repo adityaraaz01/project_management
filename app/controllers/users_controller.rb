@@ -13,7 +13,6 @@ class UsersController < ApplicationController
       log_in @user
       flash[:success] = "Welcome to the Project Management App!"
       redirect_to @user
-      # Handle a successful save.
     else
       render 'new'
     end

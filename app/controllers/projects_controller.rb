@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
 	def create
 		 @project= Project.new(project_params)
 		 if @project.save
-      flash[:success] = "project Created!"
+      flash[:success] = "Project Created!"
   		redirect_to projects_path
   	else
   			render 'new'
@@ -110,7 +110,7 @@ class ProjectsController < ApplicationController
       i.destroy  
     end
     @pro.destroy
-    flash[:success] = "project deleted!"
+    flash[:success] = "Project deleted!"
     redirect_to projects_path
   end
 

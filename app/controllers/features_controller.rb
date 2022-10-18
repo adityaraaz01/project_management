@@ -1,4 +1,5 @@
 class FeaturesController < ApplicationController
+  
   def index
     if logged_in?
 		  @features= Feature.all
@@ -20,7 +21,7 @@ class FeaturesController < ApplicationController
   def create
     @feature = Feature.new(feature_params)
     if @feature.save
-      flash[:success] = "feature created!"
+      flash[:success] = "Feature created!"
       redirect_to request.referrer
     else
       render 'projects/index'
@@ -34,7 +35,7 @@ class FeaturesController < ApplicationController
       i.destroy  
     end
     @fea.destroy
-    flash[:success] = "feature deleted"
+    flash[:success] = "Feature deleted"
     redirect_to projects_path, :notice => "feature deleted"
   end
 
@@ -43,7 +44,7 @@ class FeaturesController < ApplicationController
     if @feature.update(document_params)
       flash[:success] = "File uploaded"
     else
-      flash[:alert] = "Something went wrong"
+      flash[:danger] = "Invalid File type (jpeg, png, pdf, doc and xls accepted)"
     end
     redirect_back(fallback_location: root_path)
   end
